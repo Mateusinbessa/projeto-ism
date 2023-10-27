@@ -1,0 +1,21 @@
+<h1>Funcionários</h1>
+<div id="Funcionarios">
+    <table class="tabela">
+        <tr>
+            <th>Unidade</th>
+            <th>Matrícula</th>
+            <th>Nome</th>
+            <th>Cargo</th>
+        </tr>
+
+        {{#each dados}}
+        <tr>
+            <td class="upercase">{{this.unidade}}</td>
+            <td>{{this.id}}</td>
+            <td>{{this.nome}}</td>
+            <td>{{this.cargo}}</td>
+        </tr>
+        {{/each}}
+    </table>
+</div>
+

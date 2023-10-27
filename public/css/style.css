@@ -1,0 +1,86 @@
+* {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin: 0;
+}
+
+body {
+    background-color:bisque;
+}
+
+h1 {
+    margin-top: 20px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+/*Formulario*/
+.form, .func-container {
+    width: 450px;
+    margin: 0 auto;
+}
+
+.form-control {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    margin-bottom: .5em;
+}
+
+.form-control label {
+    font-weight: bold;
+    margin-bottom: .3em;
+}
+
+.form-control input {
+    padding: 5px;
+}
+
+.func-container div {
+    border-bottom: 1px solid #CCC;
+    padding: 5px;
+    margin: 5px;
+}
+
+/*Tabela de exibição dos funcionários e suas respectivas unidades!*/
+#Funcionarios, table {
+    width: 400px;
+    border-collapse: collapse;
+    justify-content: center;
+}
+
+.tabela th, td {
+    padding: 7px;
+    border: 2px solid black;
+    border-right: none;
+    border-left: none;
+}
+
+.tabela th {
+    text-transform: uppercase;
+    text-align: left;
+    letter-spacing: 0.1em; /*Espacamento entre as letras*/
+}
+
+.tabela tr:hover {
+    background-color: #c3e6e5;
+}
+
+.upercase {
+    text-transform: uppercase;
+}
+
+/*Barra de navegação!*/
+#nav {
+    padding-top: 40px;
+    padding-left: 10px;
+    height: 50px;
+    background-color: rgb(64, 64, 189);
+}
+
+#nav, .style a {    
+    font-size: 40px;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    background-color: rgb(64, 64, 189);
+    padding: 10px;
+}

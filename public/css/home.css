@@ -1,0 +1,27 @@
+/*Homepage*/
+body {
+    background-color: bisque;
+}
+
+#homepage1 h1 {
+    padding-top: 150px;
+    font-size: 200px;
+    text-align: center;
+    padding-right: 400px;
+}
+
+#homepage2 h1 {
+    font-size: 200px;
+    text-align: center;
+    padding-left: 400px;
+}
+
+.azul {
+    color:rgb(64, 64, 189);
+}
+
+img {
+    position: relative;
+    bottom: 250px;
+    left: 500px;
+}
