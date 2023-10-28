@@ -5,15 +5,13 @@
             <th>Unidade</th>
             <th>Matrícula</th>
             <th>Nome</th>
-            <th>Cargo</th>
         </tr>
 
-        {{#each dados}}
+        {{#each users}}
         <tr>
             <td class="upercase">{{this.unidade}}</td>
             <td>{{this.id}}</td>
             <td>{{this.nome}}</td>
-            <td>{{this.cargo}}</td>
         </tr>
         {{/each}}
     </table>

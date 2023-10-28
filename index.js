@@ -11,24 +11,16 @@ app.set('view engine', 'handlebars')
 app.use(express.static('public'))
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
+//############CONFIG PADRAO##############//
 
-//Página de funcionalidades da aplicação!
+//Rota da página inicial
 app.get('/', (req, res) =>{
     res.render('home')
 })
 
-//Pagina de cadastro!
+//Rota da página de cadastro de funcionários
 app.get('/cadastrar', (req, res) =>{
     res.render('cadastrar')
-})
-
-//Filtrando a unidade
-app.get('/funcionarios', (req,res) =>{
-    res.render('filtrar_func')
-})
-
-app.get('/funcionarios/filtrados', (req, res) => {
-    res.render('funcionarios_filtrados')
 })
 
 //Cadastrando funcionarios!
@@ -36,11 +28,7 @@ app.post('/funcionarios/insert', (req, res) =>{
     const nome = req.body.nome
     const unidade = req.body.unidade
 
-    //Função para cadastrar um novo usuário!
-    //FIZ ISSO HOJE COM PRISMA
-    //PRECISO DESENVOLVER MELHOR, MAS TÁ FUNFANDO! AUMENTAR A FUNCIONALIDADE, E AUMENTAR A ABSTRAÇÃO
-    //DPS SUBO NO GITHUB!
-    async function cadastrar() {
+    async function cadastrar(nome, unidade) {
         const newUser = await prisma.funcionarios.create({
             data: {
                 nome: nome,
@@ -48,41 +36,39 @@ app.post('/funcionarios/insert', (req, res) =>{
             }
         })
 }
-    cadastrar()
+    cadastrar(nome, unidade)
     res.redirect('/cadastrar')
 })
 
+//Rota da página que me informa as unidades para que eu possa ver os funcinários dela!
+app.get('/funcionarios', (req,res) =>{
+    res.render('filtrar_func')
+})
+
+//Rota que mostra os usuários filtrados da sede
+app.get('/funcionarios/sede', (req, res) => {
+    async function filtrar_sede() {
+        //a tabela funcionario sem o nome da unidade do lado é por padrão os usuários da sede!
+        const users = await prisma.funcionarios.findMany()
+        res.render('funcionarios_filtrados', {users})
+    } 
+    filtrar_sede()
+})
+
+//Selecionando funcionários de acordo com a unidade
 app.post('/funcionarios/filtro', (req,res) =>{
     const unidade = req.body.unidade
-    const tabela = `funcionarios_${unidade}`
-    const sql = `SELECT * FROM ${tabela}`
 
-    conn.query(sql, function(err, data) {
-        if(err){
-            console.log(err)
-            return
-        }
-
-        const dados = data
-        res.render('funcionarios_filtrados', {dados})
-    })
-})
-
-//Configuração da conexão com o DB!
-const conn = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'ism'
-})
-
-//Conexão com DB!
-conn.connect(function(err){
-    if(err){
-        console.log(err)
-        return
+    if (unidade == 'sede') {
+        //lógica de implementar as consultas é responsabilidade da rota da sede, aq eu só faço o redirecionamento!
+        res.redirect('/funcionarios/sede')
     }
-
-    console.log('Conexão com o banco de dados feita com sucesso!')
-    app.listen(port)
 })
+
+//Criando a conexão com o servidor!
+try {
+    app.listen(port)
+    console.log("Conexão realizada com sucesso!")
+} catch (error) {
+    console.log(err)
+}
