@@ -83,3 +83,30 @@ h1 {
     background-color: rgb(64, 64, 189);
     padding: 10px;
 }
+
+.select {
+    text-align: center; 
+}
+
+.select input {
+    width: 200px;
+    height: 40px;
+    background-color: rgb(64, 64, 189);
+    color: white;
+    font-size: 20px;
+    border-radius: 5px;
+    border-color: bisque;
+    font-weight: bold;
+}
+
+.select select {
+    width: 200px;
+    height: 39px;
+    text-align: center;
+    font-size: 20px;
+    background-color: rgb(64, 64, 189);
+    color: white;
+    border-color: bisque;
+    border-radius: 5px;
+    font-weight: bold;
+}

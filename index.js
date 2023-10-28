@@ -65,6 +65,23 @@ app.post('/funcionarios/filtro', (req,res) =>{
     }
 })
 
+//Alterando dados de um funcionário cadastrado
+app.get('/funcionarios/sede/edit/:id', (req, res) => {
+    const id = req.params.id
+
+    //Função pra selecionar os dados de 1 usuário apenas!
+    async function selectOne(id) {
+        const user = await prisma.funcionarios.findFirst({
+            where: {
+                id: id
+            }
+        })
+        res.render('editfuncionarios', {user})
+    } 
+    //LEMBRETE: Falta  configurar a pagina editfuncionarios!
+    selectOne()
+})
+
 //Criando a conexão com o servidor!
 try {
     app.listen(port)
