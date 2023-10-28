@@ -1,7 +1,6 @@
 //############CONFIG PADRAO##############//
 const express = require("express")
 const exphbs = require("express-handlebars")
-const mysql = require('mysql')
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient()
 const port = 3000
@@ -55,7 +54,7 @@ app.get('/funcionarios/sede', (req, res) => {
     filtrar_sede()
 })
 
-//Selecionando funcionários de acordo com a unidade
+//Selecionando funcionários de acordo com a unidade e redirecioando para a página da unidade!
 app.post('/funcionarios/filtro', (req,res) =>{
     const unidade = req.body.unidade
 
@@ -67,9 +66,8 @@ app.post('/funcionarios/filtro', (req,res) =>{
 
 //Alterando dados de um funcionário cadastrado
 app.get('/funcionarios/sede/edit/:id', (req, res) => {
-    const id = req.params.id
+    const id = parseInt(req.params.id)
 
-    //Função pra selecionar os dados de 1 usuário apenas!
     async function selectOne(id) {
         const user = await prisma.funcionarios.findFirst({
             where: {
@@ -78,8 +76,29 @@ app.get('/funcionarios/sede/edit/:id', (req, res) => {
         })
         res.render('editfuncionarios', {user})
     } 
-    //LEMBRETE: Falta  configurar a pagina editfuncionarios!
-    selectOne()
+
+    selectOne(id)
+})
+
+app.post('/funcionarios/update', (req, res) => {
+    const id = parseInt(req.body.id)
+    const nome = req.body.nome
+    const unidade = req.body.unidade
+    //nao faz sentido atualizar a unidade dele aqui, se você quer mudar a unidade do funcionário, delete ele, e adicione ele em outra unidade!
+    //só faz sentido eu pegar o nome da unidade pra redirecionar ele de forma automatizada pra unidade correta
+
+    async function atulizar(id, nome) {
+        const user = await prisma.funcionarios.update({
+            where:{
+                id: id
+            },
+            data: {
+                nome: nome,
+            }
+        })
+    }
+    atulizar(id, nome)
+    res.redirect(`/funcionarios/${unidade}`)
 })
 
 //Criando a conexão com o servidor!
