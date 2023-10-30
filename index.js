@@ -97,9 +97,12 @@ app.post('/funcionarios/update', (req, res) => {
             }
         })
     }
-    
+
     atulizar(id, nome)
-    res.redirect(`/funcionarios/${unidade}`)
+    //Função criada para que a API espere um pouco para dar tempo o update ser feito, antes de dar redirect.
+    setTimeout(() => {
+        res.redirect(`/funcionarios/${unidade}`)
+    }, 500)
 })
 
 //Deletando um usuário de determinada unidade!
