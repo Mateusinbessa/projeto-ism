@@ -97,8 +97,29 @@ app.post('/funcionarios/update', (req, res) => {
             }
         })
     }
+    
     atulizar(id, nome)
     res.redirect(`/funcionarios/${unidade}`)
+})
+
+//Deletando um usuário de determinada unidade!
+//Pra deletar usuário de outra unidade eu preciso criar outra rota substituindo o sede pela unidade desejada!
+app.post('/funcionarios/sede/remove/:id', (req, res) => {
+    const id = parseInt(req.params.id)
+
+    async function remover(id) {
+        try {
+            const user = await prisma.funcionarios.delete({
+                where: {
+                    id: id
+                }
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    remover(id)
+    res.redirect('/funcionarios/sede')
 })
 
 //Criando a conexão com o servidor!

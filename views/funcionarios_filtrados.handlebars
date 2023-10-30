@@ -11,7 +11,10 @@
         <tr>
             <td class="upercase">{{this.unidade}}</td>
             <td>{{this.id}}</td>
-            <td>{{this.nome}} <a href="/funcionarios/{{this.unidade}}/edit/{{this.id}}">Editar</a></td>
+            <td>{{this.nome}} <a href="/funcionarios/{{this.unidade}}/edit/{{this.id}}">Editar</a>
+            <form action="/funcionarios/{{this.unidade}}/remove/{{this.id}}" method="post">
+                <input type="submit" value="Remover">
+            </form></td>
         </tr>
         {{/each}}
     </table>
